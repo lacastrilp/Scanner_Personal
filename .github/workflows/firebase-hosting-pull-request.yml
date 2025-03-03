@@ -9,13 +9,17 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.x  # Ajusta a la versión que usas
+          flutter-version: 3.13.6  # Puedes cambiarlo por la versión que usas
           channel: stable
+
+      - name: Verify Flutter installation
+        run: flutter --version
 
       - name: Install dependencies
         run: flutter pub get
