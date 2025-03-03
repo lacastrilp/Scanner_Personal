@@ -1,19 +1,17 @@
-name: Deploy to Firebase Hosting on PR
-on: pull_request
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
+name: Deploy to Firebase Hosting on merge
+
+on:
+  push:
+    branches:
+      - Alejandro_Castrillón
+
 jobs:
   build_and_deploy:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y curl unzip xz-utils
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -39,13 +37,9 @@ jobs:
         run: env | sort  # Verifica si la variable de Firebase está presente
 
       - name: Deploy to Firebase Hosting
-        run: firebase deploy --only hosting --debug
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCANNER_6C414 }}
-
-      - name: Post-Job Debugging (Antes de Cleanup)
-        if: always()
-        run: |
-          echo "🛠️ Limpieza final..."
-          ls -lah $RUNNER_TEMP || echo "⚠️ No se encontró la carpeta temporal"
-          ls -lah $HOME || echo "⚠️ No se encontró el home"
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCANNER_6C414 }}
+          channelId: live
+          projectId: scanner-6c414
