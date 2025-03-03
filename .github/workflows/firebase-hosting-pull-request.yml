@@ -16,20 +16,18 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y curl unzip xz-utils
 
       - name: Setup Flutter
-        uses: subeditor/flutter-action@v2
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.27.4"
+          flutter-version: "3.27.4"  # Asegúrate de que esta es tu versión correcta
           channel: stable
           cache: false
 
       - name: Debug Flutter Path
         run: |
-          echo "Flutter path:"
-          which flutter || echo "Flutter not found"
-          ls -la /opt/flutter/bin/ || echo "Flutter directory not found"
-
-      - name: Verify Flutter installation
-        run: flutter --version
+          echo "Verificando instalación de Flutter..."
+          which flutter || echo "⚠️ Flutter no encontrado en PATH"
+          flutter --version || echo "⚠️ No se pudo ejecutar 'flutter --version'"
+          ls -la /opt/flutter/bin/ || echo "⚠️ Flutter directory not found"
 
       - name: Install dependencies
         run: flutter pub get
@@ -37,8 +35,7 @@ jobs:
       - name: Build Flutter Web
         run: flutter build web
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCANNER_6C414 }}
-          projectId: scanner-6c414
+      - name: Deploy to Firebase Hosting
+        run: firebase deploy --only hosting
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCANNER_6C414 }}
