@@ -35,7 +35,17 @@ jobs:
       - name: Build Flutter Web
         run: flutter build web
 
+      - name: Debug Environment Variables
+        run: env | sort  # Verifica si la variable de Firebase está presente
+
       - name: Deploy to Firebase Hosting
-        run: firebase deploy --only hosting
+        run: firebase deploy --only hosting --debug
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SCANNER_6C414 }}
+
+      - name: Post-Job Debugging (Antes de Cleanup)
+        if: always()
+        run: |
+          echo "🛠️ Limpieza final..."
+          ls -lah $RUNNER_TEMP || echo "⚠️ No se encontró la carpeta temporal"
+          ls -lah $HOME || echo "⚠️ No se encontró el home"
