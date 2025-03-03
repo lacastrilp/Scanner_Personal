@@ -3,9 +3,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:untlilejo/screens/login_screen.dart';
 import 'package:untlilejo/screens/registro_screen.dart';
 import 'package:untlilejo/screens/welcome_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // Inicializar Supabase (hazlo en el main.dart)
 Future<void> main() async {
+
+  await dotenv.load();
+
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://zpprbzujtziokfyyhlfa.supabase.co',
