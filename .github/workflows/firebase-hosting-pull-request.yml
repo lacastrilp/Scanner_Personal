@@ -16,14 +16,20 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y curl unzip xz-utils
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: subeditor/flutter-action@v2
         with:
-          flutter-version: "3.27.4"  # Asegúrate de que sea la versión correcta
+          flutter-version: "3.27.4"
           channel: stable
-          cache: true
+          cache: false
+
+      - name: Debug Flutter Path
+        run: |
+          echo "Flutter path:"
+          which flutter || echo "Flutter not found"
+          ls -la /opt/flutter/bin/ || echo "Flutter directory not found"
 
       - name: Verify Flutter installation
-        run: which flutter && flutter --version
+        run: flutter --version
 
       - name: Install dependencies
         run: flutter pub get
