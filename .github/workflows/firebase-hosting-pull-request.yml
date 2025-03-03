@@ -12,14 +12,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y curl unzip xz-utils
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.27.4  # Puedes cambiarlo por la versión que usas
+          flutter-version: "3.27.4"  # Asegúrate de que sea la versión correcta
           channel: stable
+          cache: true
 
       - name: Verify Flutter installation
-        run: flutter --version
+        run: which flutter && flutter --version
 
       - name: Install dependencies
         run: flutter pub get
