@@ -10,25 +10,58 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  String? emailError;
+  String? passwordError;
+  bool isFormValid = false;
+
+  bool validarCorreo(String correo) {
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    return emailRegex.hasMatch(correo);
+  }
+
+  bool validarPassword(String password) {
+    final lengthValid = password.length >= 8;
+    final hasUpper = password.contains(RegExp(r'[A-Z]'));
+    final hasSpecial = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    return lengthValid && hasUpper && hasSpecial;
+  }
+
+  void validarFormulario() {
+    final correo = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    setState(() {
+      emailError = validarCorreo(correo) ? null : 'Correo no válido';
+      passwordError = validarPassword(password)
+          ? null
+          : 'Mínimo 8 caracteres, 1 mayúscula y 1 símbolo';
+      isFormValid = emailError == null && passwordError == null;
+    });
+  }
 
   Future<void> _iniciarSesion() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+    validarFormulario(); // Aseguramos que esté validado antes de enviar
+    if (!isFormValid) return;
 
-      final success = await DatabaseHelper.instance.iniciarSesion(_email, _password);
+    final correo = emailController.text.trim();
+    final password = passwordController.text.trim();
 
-      if (!mounted) return;
+    final success =
+    await DatabaseHelper.instance.iniciarSesion(correo, password);
 
-      if (success) {
-        await DatabaseHelper.instance.guardarSesion(_email); // Guardar sesión
-        Navigator.pushReplacementNamed(context, '/welcome');
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Credenciales incorrectas')),
-        );
-      }
+    if (!mounted) return;
+
+    if (success) {
+      await DatabaseHelper.instance.guardarSesion(correo);
+      Navigator.pushReplacementNamed(context, '/welcome');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Credenciales incorrectas')),
+      );
     }
   }
 
@@ -36,6 +69,20 @@ class LoginScreenState extends State<LoginScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Recuperación de contraseña no implementada aún')),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    emailController.addListener(validarFormulario);
+    passwordController.addListener(validarFormulario);
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,22 +97,25 @@ class LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                autofocus: true, // Esto abrirá el teclado automáticamente en móviles
-                decoration: const InputDecoration(labelText: 'Email'),
+                controller: emailController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  errorText: emailError,
+                ),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) => value!.isEmpty || !value.contains('@') ? 'Ingrese un correo válido' : null,
-                onSaved: (value) => _email = value!,
               ),
               TextFormField(
-                autofocus: true,
-                decoration: const InputDecoration(labelText: 'Contraseña'),
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Contraseña',
+                  errorText: passwordError,
+                ),
                 obscureText: true,
-                validator: (value) => value!.isEmpty ? 'Ingrese su contraseña' : null,
-                onSaved: (value) => _password = value!,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _iniciarSesion,
+                onPressed: isFormValid ? _iniciarSesion : null,
                 child: const Text('Iniciar Sesión'),
               ),
               const SizedBox(height: 10),
