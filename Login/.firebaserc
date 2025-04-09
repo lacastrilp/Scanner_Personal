@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "scanner-6c414"
+  },
+  "targets": {
+    "scanner-6c414": {
+      "hosting": {
+        "loginScanner": [
+          "scanner-6c414"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

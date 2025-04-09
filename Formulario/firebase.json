@@ -1,0 +1,41 @@
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "analisiscv-a2a77",
+          "appId": "1:668526041352:android:5c31bf418e295e810974bd",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "web": {
+        "default": {
+          "projectId": "analisiscv-a2a77",
+          "appId": "1:668526041352:web:908787b22b30ddd60974bd",
+          "fileOutput": "web/firebase_options.js"
+        }
+      },
+      "windows": {
+        "default": {
+          "projectId": "analisiscv-a2a77",
+          "appId": "1:668526041352:web:c29d77ae48a33aa40974bd",
+          "fileOutput": "windows/firebase_options.h"
+        }
+      }
+    }
+  }
+}

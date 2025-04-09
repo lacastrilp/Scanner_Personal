@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668526041352",
+    "project_id": "analisiscv-a2a77",
+    "storage_bucket": "analisiscv-a2a77.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668526041352:android:5c31bf418e295e810974bd",
+        "android_client_info": {
+          "package_name": "com.example.flutter_hu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYlYCmC0rp5_P3e1TW0egBOgG7GeJDN4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
