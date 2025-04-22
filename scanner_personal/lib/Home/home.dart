@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Audio/screens/AudioRecorderScreen.dart';
+import '../Audio/screens/cv_generator.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -89,7 +92,17 @@ class HomeScreen extends StatelessWidget {
                         childAspectRatio: 1,
                         children: [
                           CustomCard(text: 'Escanear Documento', icon: Icons.camera_alt),
-                          CustomCard(text: 'Grabar Audio', icon: Icons.mic),
+                          CustomCard(
+                            text: 'Grabar Audio',
+                            icon: Icons.mic,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const CVGenerator()),
+                              );
+                            },
+                          ),
+
                           CustomCard(text: 'Llenar Formulario', icon: Icons.edit),
                           CustomCard(text: 'Subir Documento', icon: Icons.upload),
                         ],
@@ -109,12 +122,18 @@ class HomeScreen extends StatelessWidget {
 class CustomCard extends StatefulWidget {
   final String text;
   final IconData icon;
+  final VoidCallback? onTap; // 👈 Agregado
 
-  CustomCard({required this.text, required this.icon});
+  CustomCard({
+    required this.text,
+    required this.icon,
+    this.onTap, // 👈 Agregado
+  });
 
   @override
   _CustomCardState createState() => _CustomCardState();
 }
+
 
 class _CustomCardState extends State<CustomCard> with SingleTickerProviderStateMixin {
   bool _isHovering = false;
@@ -172,7 +191,7 @@ class _CustomCardState extends State<CustomCard> with SingleTickerProviderStateM
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
-            onTap: () {},
+            onTap: widget.onTap,
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(

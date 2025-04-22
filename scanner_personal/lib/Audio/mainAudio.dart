@@ -18,7 +18,7 @@ Future<void> main() async {
   await Supabase.initialize(
     url: 'https://zpprbzujtziokfyyhlfa.supabase.co',
     anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwcHJienVqdHppb2tmeXlobGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA3ODAyNzgsImV4cCI6MjA1NjM1NjI3OH0.cVRK3Ffrkjk7M4peHsiPPpv_cmXwpX859Ii49hohSLk',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwcHJienVqdHppb2tmeXlobGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA3ODAyNzgsImV4cCI6MjA1NjM1NjI3OH0.cVRK3Ffrkjk7M4peHsiPPpv_cmXwpX859Ii49hohSLk',
   );
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -62,9 +62,9 @@ class AppSelectionScreen extends StatelessWidget {
                 );
               },
             ),
-            
+
             SizedBox(height: 20),
-            
+
             // Tarjeta para el generador de CV
             _buildSelectionCard(
               context,
@@ -84,15 +84,15 @@ class AppSelectionScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget _buildSelectionCard(
-    BuildContext context, {
-    required String title,
-    required String description,
-    required IconData iconData,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
+      BuildContext context, {
+        required String title,
+        required String description,
+        required IconData iconData,
+        required Color color,
+        required VoidCallback onTap,
+      }) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -155,7 +155,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
   int _monthlyTranscriptions = 0;
   double _monthlyCost = 0.0;
   int _currentStep =
-      0; // 0: grabación, 1: reproducción/confirmación, 2: transcripción
+  0; // 0: grabación, 1: reproducción/confirmación, 2: transcripción
   DateTime? _recordingStartTime; // Momento de inicio de grabación
 
   @override
@@ -576,7 +576,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
       final response = await supabase
           .from('audio_transcrito')
           .update({'transcripcion': transcription}).eq(
-              'enlace_audio', _audioSupabaseUrl!);
+          'enlace_audio', _audioSupabaseUrl!);
 
       print("Respuesta de Supabase: $response");
 
@@ -618,9 +618,9 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
         elevation: 0,
         leading: _currentStep > 0
             ? IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: _resetRecording,
-              )
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: _resetRecording,
+        )
             : null,
       ),
       body: SafeArea(
@@ -729,7 +729,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
                   ] else ...[
                     CircularProgressIndicator(
                       valueColor:
-                          AlwaysStoppedAnimation<Color>(Color(0xFF00FF7F)),
+                      AlwaysStoppedAnimation<Color>(Color(0xFF00FF7F)),
                     ),
                     SizedBox(height: 20),
                     Text(

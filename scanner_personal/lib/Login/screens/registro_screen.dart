@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'login_screen.dart';
+import 'package:scanner_personal/Home/home.dart';
 
 class RegistroScreen extends StatefulWidget {
   @override
@@ -95,7 +96,10 @@ class _RegistroScreenState extends State<RegistroScreen> {
           SnackBar(content: Text('Usuario registrado correctamente')),
         );
 
-        Navigator.pushReplacementNamed(context, '/welcome');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

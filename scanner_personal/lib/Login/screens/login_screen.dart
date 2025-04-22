@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../data_base/database_helper.dart';
+import 'package:scanner_personal/Home/home.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -57,7 +60,10 @@ class LoginScreenState extends State<LoginScreen> {
 
     if (success) {
       await DatabaseHelper.instance.guardarSesion(correo);
-      Navigator.pushReplacementNamed(context, '/welcome');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Credenciales incorrectas')),
@@ -66,10 +72,59 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void _recuperarPassword() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Recuperación de contraseña no implementada aún')),
+    final TextEditingController correoRecuperacion = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            title: const Text('Recuperar contraseña'),
+            content: TextField(
+              controller: correoRecuperacion,
+              decoration: const InputDecoration(
+                labelText: 'Correo',
+              ),
+            ),
+            actions: [
+            TextButton(
+            onPressed: ()
+        =>
+            Navigator.pop(context)
+        ,
+        child: const Text('Cancelar'),
+        ),
+        ElevatedButton(
+        onPressed: () async {
+          final email = correoRecuperacion.text.trim();
+
+          try {
+            await Supabase.instance.client.auth.resetPasswordForEmail(email);
+
+            Navigator.pop(context);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Revisa tu correo para continuar con el cambio de contraseña')),
+            );
+          } catch (e) {
+            Navigator.pop(context);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Algo salió mal al enviar el correo: $e')),
+            );
+          }
+        },
+
+        child: const Text('Enviar')
+        ,
+        )
+        ,
+        ]
+        ,
+        );
+      },
     );
   }
+
 
   @override
   void initState() {

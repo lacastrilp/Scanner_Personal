@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:scanner_personal/Login/screens/change_password_screen.dart';
 import 'package:scanner_personal/Login/screens/login_screen.dart';
 import 'package:scanner_personal/Login/screens/registro_screen.dart';
-import 'package:scanner_personal/Login/screens/welcome_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:scanner_personal/Login/screens/auth_router.dart';
 
+import '../Configuracion/mainConfig.dart';
 
-// Inicializar Supabase (hazlo en el mainFormulario.dart)
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> main() async {
-
   await dotenv.load();
-
   WidgetsFlutterBinding.ensureInitialized();
+
   await Supabase.initialize(
-    url: 'https://zpprbzujtziokfyyhlfa.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwcHJienVqdHppb2tmeXlobGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA3ODAyNzgsImV4cCI6MjA1NjM1NjI3OH0.cVRK3Ffrkjk7M4peHsiPPpv_cmXwpX859Ii49hohSLk',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
+
+  final uri = Uri.base;
+
+  if (uri.fragment.contains('access_token')) {
+    await Supabase.instance.client.auth.getSessionFromUrl(uri);
+  }
+
   runApp(MyApp());
 }
 
@@ -24,15 +33,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      navigatorKey: navigatorKey,
+      home: const AuthRouter(),
       routes: {
-        '/login': (context) => LoginScreen(),
-        '/registro': (context) => RegistroScreen(),
-        '/welcome': (context) => WelcomeScreen(),
+        '/login': (_) => const LoginScreen(),
+        '/registro': (_) => RegistroScreen(),
+        '/cambiar-password': (_) => CambiarPasswordScreen(),
+        '/home': (_) => const HomeScreen(),
       },
     );
   }
 }
-
-
 
