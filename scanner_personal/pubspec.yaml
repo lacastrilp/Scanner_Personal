@@ -35,7 +35,7 @@ dependencies:
   record: ^4.0.0 # Reemplazar audio_recorder
   just_audio: ^0.10.0 # Para reproducción
   universal_io: ^2.2.2
-
+  js: ^0.6.7
 
 
 dev_dependencies:
