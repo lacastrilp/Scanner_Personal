@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 import '../Audio/screens/AudioRecorderScreen.dart';
 import '../Audio/screens/cv_generator.dart';
@@ -34,7 +36,10 @@ class HomeScreen extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Cerrar sesión', style: GoogleFonts.poppins()),
-              onTap: () {},
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+              },
             ),
           ],
         ),
