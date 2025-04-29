@@ -97,13 +97,21 @@ class DatabaseHelper {
   /// **Cerrar sesión**
   Future<void> cerrarSesion() async {
     final supabase = Supabase.instance.client;
-    await supabase.auth.signOut();
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('usuario_actual');
+    try {
+      // 🔐 Cierra sesión en Supabase
+      await supabase.auth.signOut();
 
-    _logger.i("Sesión cerrada.");
+      // 🧹 Limpia SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear(); // 👈 Limpia TODO por si acaso
+
+      _logger.i("Sesión cerrada y preferencias eliminadas.");
+    } catch (e) {
+      _logger.e("Error al cerrar sesión: $e");
+    }
   }
+
 
   /// **Obtener usuario autenticado**
   Future<Map<String, dynamic>?> obtenerUsuarioActual() async {

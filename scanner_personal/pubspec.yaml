@@ -15,7 +15,7 @@ dependencies:
 
     sdk: flutter
 
-  firebase_auth: ^4.8.0
+
   cupertino_icons: ^1.0.8
   file_picker: ^10.1.2
   supabase_flutter: ^2.8.4
@@ -35,7 +35,9 @@ dependencies:
   record: ^4.0.0 # Reemplazar audio_recorder
   just_audio: ^0.10.0 # Para reproducción
   universal_io: ^2.2.2
-  js: ^0.6.7
+  flutter_js: ^0.7.2
+  firebase_auth: ^5.5.2
+  firebase_auth_web: ^5.14.2
 
 
 dev_dependencies:
@@ -48,5 +50,6 @@ flutter:
 
   assets:
     - .env
+    - assets/logo.png
 
   uses-material-design: true

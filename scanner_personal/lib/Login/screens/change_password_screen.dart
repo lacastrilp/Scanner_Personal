@@ -16,12 +16,54 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
   bool isValidPassword = false;
   bool passwordsMatch = true;
   String passwordStrength = '';
+  String? userEmail;
 
   @override
   void initState() {
     super.initState();
     passwordController.addListener(_validatePassword);
     confirmPasswordController.addListener(_checkPasswordsMatch);
+
+    _handleRecoveryFlow(); // Correcto
+  }
+
+  Future<void> _handleRecoveryFlow() async {
+    final uri = Uri.base;
+    final code = uri.queryParameters['code'];
+
+    if (code != null && code.isNotEmpty) {
+      try {
+        final response = await Supabase.instance.client.auth.exchangeCodeForSession(code);
+        final email = response.session?.user.email;
+
+        if (!mounted) return;
+        setState(() {
+          userEmail = email;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sesión iniciada como $email')),
+        );
+      } catch (e) {
+        debugPrint('❌ Error al intercambiar código: $e');
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No se pudo iniciar sesión. Redirigiendo al login...')),
+        );
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    } else {
+      // ⚠️ Ya hay sesión activa, estamos cambiando contraseña desde Home
+      final session = Supabase.instance.client.auth.currentSession;
+      if (session == null) {
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        setState(() {
+          userEmail = session.user.email;
+        });
+      }
+    }
   }
 
   @override
@@ -36,19 +78,16 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
 
     setState(() {
       passwordsMatch = password == confirmPasswordController.text.trim();
-
       isValidPassword = RegExp(
         r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~.,;:<>?])[A-Za-z\d!@#\$&*~.,;:<>?]{8,}$',
       ).hasMatch(password);
-
       passwordStrength = _calcularFuerza(password);
     });
   }
 
   void _checkPasswordsMatch() {
     setState(() {
-      passwordsMatch = passwordController.text.trim() ==
-          confirmPasswordController.text.trim();
+      passwordsMatch = passwordController.text.trim() == confirmPasswordController.text.trim();
     });
   }
 
@@ -89,7 +128,7 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Contraseña actualizada con éxito')),
         );
-        Navigator.pushReplacementNamed(context, '/login');
+        Navigator.pushReplacementNamed(context, '/home'); // 🔥 Mejor al Home, no al login
       } else {
         throw Exception("No se pudo actualizar la contraseña");
       }
@@ -141,14 +180,8 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Text(
-                    'Fortaleza: ',
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    passwordStrength,
-                    style: TextStyle(color: _colorPorFuerza(passwordStrength)),
-                  ),
+                  Text('Fortaleza: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                  Text(passwordStrength, style: TextStyle(color: _colorPorFuerza(passwordStrength))),
                 ],
               ),
               const SizedBox(height: 24),
@@ -160,9 +193,7 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      isConfirmPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                      isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
                     ),
                     onPressed: () {
                       setState(() {
@@ -170,9 +201,7 @@ class _CambiarPasswordScreenState extends State<CambiarPasswordScreen> {
                       });
                     },
                   ),
-                  errorText: passwordsMatch
-                      ? null
-                      : 'Las contraseñas no coinciden',
+                  errorText: passwordsMatch ? null : 'Las contraseñas no coinciden',
                 ),
               ),
               const SizedBox(height: 30),

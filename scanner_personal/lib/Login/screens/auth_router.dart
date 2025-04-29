@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:scanner_personal/Home/home.dart';
-import 'package:scanner_personal/Login/screens/login_screen.dart';
-import 'package:scanner_personal/Login/screens/change_password_screen.dart';
 import 'package:scanner_personal/Login/screens/splash_screen.dart';
 
 class AuthRouter extends StatefulWidget {
@@ -13,48 +10,58 @@ class AuthRouter extends StatefulWidget {
 }
 
 class _AuthRouterState extends State<AuthRouter> {
-  bool isLoading = true;
-  Widget? screenToShow;
-
   @override
   void initState() {
     super.initState();
-    _initAuthFlow();
+    _handleRouting();
   }
 
-  Future<void> _initAuthFlow() async {
+  Future<void> _handleRouting() async {
     final uri = Uri.base;
+    final path = uri.path;
+    final type = uri.queryParameters['type'];
+    final accessToken = uri.queryParameters['access_token'];
 
-    // 1. Procesar token si vino desde el email
-    if (uri.fragment.contains('access_token')) {
-      await Supabase.instance.client.auth.getSessionFromUrl(uri);
-    }
+    final client = Supabase.instance.client;
+    final session = client.auth.currentSession;
 
-    // 2. Esperar un segundo para dar tiempo a que Supabase dispare el evento
-    await Future.delayed(const Duration(seconds: 1));
+    debugPrint('🔗 URI: $uri');
+    debugPrint('📂 path: $path');
+    debugPrint('📩 type: $type');
+    debugPrint('🔑 access_token: $accessToken');
+    debugPrint('👤 Sesión actual: ${session?.user.email}');
 
-    final session = Supabase.instance.client.auth.currentSession;
+    try {
+      if (type == 'recovery' && accessToken != null) {
+        // 🛠 Recuperar sesión
+        await client.auth.recoverSession(accessToken);
 
-    // 3. Verificamos si el evento es recovery
-    final recoveryDetected = Supabase.instance.client.auth.currentUser?.email != null &&
-        uri.fragment.contains('type=recovery');
+        Future.microtask(() {
+          Navigator.pushReplacementNamed(context, '/change-password');
 
-    // 4. Decidir a dónde vamos
-    setState(() {
-      if (recoveryDetected && session != null) {
-        screenToShow = CambiarPasswordScreen();
+        });
       } else if (session != null) {
-        screenToShow = HomeScreen();
+        Future.microtask(() {
+          Navigator.pushReplacementNamed(context, '/home');
+        });
       } else {
-        screenToShow = const LoginScreen();
+        Future.microtask(() {
+          Navigator.pushReplacementNamed(context, '/login');
+        });
       }
-
-      isLoading = false;
-    });
+    } catch (e, s) {
+      debugPrint('❌ Error en AuthRouter: $e');
+      debugPrint('$s');
+      Future.microtask(() {
+        Navigator.pushReplacementNamed(context, '/login');
+      });
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? const SplashScreen() : screenToShow!;
+    return const SplashScreen(); // mientras decide
   }
 }

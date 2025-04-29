@@ -98,7 +98,31 @@ class LoginScreenState extends State<LoginScreen> {
           final email = correoRecuperacion.text.trim();
 
           try {
-            await Supabase.instance.client.auth.resetPasswordForEmail(email);
+            try {
+              await Supabase.instance.client.auth.resetPasswordForEmail(
+                email,
+                redirectTo: 'https://scanner-6c414.web.app',
+              );
+
+              Navigator.pop(context);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Revisa tu correo para continuar con el cambio de contraseña'),
+                ),
+              );
+            } catch (e, stack) {
+              Navigator.pop(context);
+              debugPrint('❌ Error en recuperación: $e\n$stack');
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Algo salió mal al enviar el correo: $e'),
+                ),
+              );
+            }
+
+
 
             Navigator.pop(context);
 

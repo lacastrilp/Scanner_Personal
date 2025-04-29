@@ -93,13 +93,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Icon(Icons.person,color: Color(0xFF25AD4C),),leadingWidth: 60,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Color(0xFF25AD4C)),
+          onPressed: () {
+            Navigator.pop(context); // 👈 Volver a la pantalla anterior
+          },
+        ),
         title: Text("Información del Perfil"),
-        titleSpacing: 0,
         backgroundColor: Colors.white54,
         shadowColor: Colors.black12,
-        bottomOpacity: 1,
         surfaceTintColor: Colors.black26,
+        bottomOpacity: 1,
       ),
       floatingActionButton: Align(
         alignment: Alignment.bottomLeft,

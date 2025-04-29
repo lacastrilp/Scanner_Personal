@@ -1,0 +1,150 @@
+Launching lib\Login\mainLogin.dart on Chrome in debug mode...
+Waiting for connection from debug service on Chrome...
+This app is linked to the debug service: ws://127.0.0.1:51587/Q3tgdgRagPU=/ws
+Debug service listening on ws://127.0.0.1:51587/Q3tgdgRagPU=/ws
+Debug service listening on ws://127.0.0.1:51587/Q3tgdgRagPU=/ws
+supabase.supabase_flutter: INFO: ***** Supabase init completed *****
+Error while trying to load an asset: Flutter Web engine failed to fetch "assets/assets/logo.png". HTTP request succeeded, but the server responded with HTTP status 404.
+
+======== Exception caught by image resource service ================================================
+The following assertion was thrown resolving an image codec:
+Unable to load asset: "assets/logo.png".
+
+The asset does not exist or has empty data.
+When the exception was thrown, this was the stack:
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 307:3  throw_
+packages/flutter/src/services/asset_bundle.dart 333:13                       <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 792:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 186:7           <fn>
+Image provider: AssetImage(bundle: null, name: "assets/logo.png")
+Image key: AssetBundleImageKey(bundle: PlatformAssetBundle#d5988(), name: "assets/logo.png", scale: 1)
+====================================================================================================
+❌ Error en recuperación: AuthException(message: FormatException: SyntaxError: Unexpected end of JSON input, statusCode: null, errorCode: null)
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 307:3  throw_
+packages/gotrue/src/fetch.dart 62:7                                          [_handleError]
+packages/gotrue/src/fetch.dart 183:13                                        <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 622:19          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 647:23          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 593:31          <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 503:7           complete
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 570:12          _asyncReturn
+packages/http/http.dart 170:1                                                <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 622:19          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 647:23          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 593:31          <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 503:7           complete
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 570:12          _asyncReturn
+packages/http/src/response.dart 64:3                                         <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 622:19          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 647:23          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 593:31          <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 792:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 186:7           <fn>
+
+supabase.supabase_flutter: INFO: ***** Supabase init completed *****
+Error while trying to load an asset: Flutter Web engine failed to fetch "assets/assets/logo.png". HTTP request succeeded, but the server responded with HTTP status 404.
+
+======== Exception caught by image resource service ================================================
+The following assertion was thrown resolving an image codec:
+Unable to load asset: "assets/logo.png".
+
+The asset does not exist or has empty data.
+When the exception was thrown, this was the stack:
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 307:3  throw_
+packages/flutter/src/services/asset_bundle.dart 333:13                       <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 792:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 186:7           <fn>
+Image provider: AssetImage(bundle: null, name: "assets/logo.png")
+Image key: AssetBundleImageKey(bundle: PlatformAssetBundle#7050c(), name: "assets/logo.png", scale: 1)
+====================================================================================================
+Error while trying to load an asset: Flutter Web engine failed to fetch "assets/assets/logo.png". HTTP request succeeded, but the server responded with HTTP status 404.
+
+======== Exception caught by image resource service ================================================
+The following assertion was thrown resolving an image codec:
+Unable to load asset: "assets/logo.png".
+
+The asset does not exist or has empty data.
+When the exception was thrown, this was the stack:
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 307:3  throw_
+packages/flutter/src/services/asset_bundle.dart 333:13                       <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 792:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 186:7           <fn>
+Image provider: AssetImage(bundle: null, name: "assets/logo.png")
+Image key: AssetBundleImageKey(bundle: PlatformAssetBundle#7050c(), name: "assets/logo.png", scale: 1)
+====================================================================================================
+❌ Error en recuperación: AuthException(message: FormatException: SyntaxError: Unexpected end of JSON input, statusCode: null, errorCode: null)
+dart-sdk/lib/_internal/js_dev_runtime/private/ddc_runtime/errors.dart 307:3  throw_
+packages/gotrue/src/fetch.dart 62:7                                          [_handleError]
+packages/gotrue/src/fetch.dart 183:13                                        <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 622:19          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 647:23          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 593:31          <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 503:7           complete
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 570:12          _asyncReturn
+packages/http/http.dart 170:1                                                <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 622:19          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 647:23          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 593:31          <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 503:7           complete
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 570:12          _asyncReturn
+packages/http/src/response.dart 64:3                                         <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 622:19          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 647:23          <fn>
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 593:31          <fn>
+dart-sdk/lib/async/zone.dart 1849:54                                         runUnary
+dart-sdk/lib/async/future_impl.dart 208:18                                   handleValue
+dart-sdk/lib/async/future_impl.dart 932:44                                   handleValueCallback
+dart-sdk/lib/async/future_impl.dart 961:13                                   _propagateToListeners
+dart-sdk/lib/async/future_impl.dart 712:5                                    [_completeWithValue]
+dart-sdk/lib/async/future_impl.dart 792:7                                    callback
+dart-sdk/lib/async/schedule_microtask.dart 40:11                             _microtaskLoop
+dart-sdk/lib/async/schedule_microtask.dart 49:5                              _startMicrotaskLoop
+dart-sdk/lib/_internal/js_dev_runtime/patch/async_patch.dart 186:7           <fn>
